@@ -39,9 +39,15 @@ board.addEventListener("click", (e) => {
         
         turn = 1 - turn;
         whosTurn.textContent = "Player: " + (turn+1);
+        
+        let out = checkForWinner();
 
-        if (checkForWinner() != -1) {
-            winner.innerHTML = `<strong>Winner: ${checkForWinner() + 1}</strong>`;
+        if (out != -1) {
+            winner.innerHTML = `<strong>Winner: ${out + 1}</strong>`;
+            disabled = 1;
+        }
+        if (out == -1 && !state.includes(-1)) {
+            winner.innerHTML = `<strong>Draw!</strong>`;
             disabled = 1;
         }
 
@@ -67,6 +73,5 @@ function checkForWinner() {
     if (state[2] === state[4] && state[4] === state[6] && state[2] !== -1) {
         return state[2];
     }
-
     return -1;
 }
